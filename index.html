@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Coké - Tienda de Chocolates</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <h1>Coké</h1>
+        <p>Chocolates artesanales finos y exclusivos</p>
+    </header>
+
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <main>
+        <section id="productos" class="productos">
+            <!-- Productos generados por script.js si lo deseas -->
+            <div class="producto">
+                <img src="img/choco1.png" alt="Chocolate 70%">
+                <h3>Chocolate Amargo 70%</h3>
+                <p>$5.00 - Intenso y aromático, con notas de cacao puro.</p>
+                <button class="boton" data-name="Chocolate Amargo 70%" data-price="5">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="img/choco2.png" alt="Chocolate Avellanas">
+                <h3>Chocolate con Avellanas</h3>
+                <p>$6.00 - Cremoso y crujiente, una mezcla irresistible.</p>
+                <button class="boton" data-name="Chocolate con Avellanas" data-price="6">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="img/choco3.png" alt="Chocolate Blanco">
+                <h3>Chocolate Blanco con Fresas</h3>
+                <p>$6.50 - Dulce y afrutado para paladares finos.</p>
+                <button class="boton" data-name="Chocolate Blanco con Fresas" data-price="6.5">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="img/choco4.png" alt="Chocolate Menta">
+                <h3>Chocolate con Menta</h3>
+                <p>$5.50 - Refrescante sabor que combina perfecto con cacao.</p>
+                <button class="boton" data-name="Chocolate con Menta" data-price="5.5">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="img/choco5.png" alt="Chocolate Café">
+                <h3>Chocolate con Café</h3>
+                <p>$6.00 - Energía y dulzura en cada mordida.</p>
+                <button class="boton" data-name="Chocolate con Café" data-price="6">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="img/choco6.png" alt="Chocolate Naranja">
+                <h3>Chocolate con Naranja</h3>
+                <p>$5.80 - Aroma cítrico y dulzura equilibrada.</p>
+                <button class="boton" data-name="Chocolate con Naranja" data-price="5.8">Agregar al carrito</button>
+            </div>
+        </section>
+
+        <section id="nosotros" class="about">
+            <h2>Nosotros</h2>
+            <p>En Coké elaboramos chocolates artesanales con ingredientes de primera calidad. Nuestra misión es ofrecer experiencias de sabor únicas.</p>
+        </section>
+
+        <section id="contacto" class="contact">
+            <h2>Contacto</h2>
+            <form id="contactForm">
+                <label>Nombre<input name="name" required></label>
+                <label>Email<input name="email" type="email" required></label>
+                <label>Mensaje<textarea name="message" rows="4" required></textarea></label>
+                <button type="submit" class="boton">Enviar</button>
+                <p id="contactStatus" class="small"></p>
+            </form>
+        </section>
+    </main>
+
+    <aside id="carrito">
+        <h2>🛒 Carrito</h2>
+        <ul id="lista-carrito"></ul>
+        <p id="total">Total: $0.00</p>
+        <button class="boton" id="vaciar">Vaciar carrito</button>
+        <button class="boton" id="checkout">Finalizar (simulado)</button>
+    </aside>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Coké Chocolates. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

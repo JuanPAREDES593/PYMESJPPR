@@ -1,0 +1,256 @@
+<!--
+  Archivo: coke-mvp.html
+  Descripción: Página web completa en un solo archivo para tu tienda de chocolates "Coké".
+  Contiene: HTML + CSS + JS (interactivo: catálogo, carrito en localStorage, formulario de contacto).
+
+  Instrucciones rápidas:
+  1) Guarda este contenido como `index.html` en una carpeta.
+  2) Abre el archivo localmente en tu navegador para probar (doble clic).
+  3) Para publicar: sube a GitHub Pages o Netlify (solo sube index.html).
+  4) Reemplaza las imágenes y textos por los tuyos. Busca en el código "REEMPLAZAR" para localizar cosas a cambiar.
+
+  Si quieres, te creo las versiones separadas (index.html, styles.css, script.js) y un README.
+-->
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Coké — Chocolates artesanales</title>
+  <meta name="description" content="Coké: chocolates artesanales, bombones y trufas de calidad premium. Compra online fácil y rápido.">
+  <meta name="author" content="Coké">
+  <style>
+    /* ==========================
+       STYLES - sencillo y responsive
+       ========================== */
+    :root{--accent:#6b2d2d;--accent-2:#b8735a;--bg:#fffaf7;--card:#fff;--muted:#666}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#222;background:var(--bg)}
+    .container{max-width:1100px;margin:0 auto;padding:1rem}
+    header{background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+    .top{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem}
+    .logo{font-weight:700;color:var(--accent);font-size:1.25rem}
+    nav a{margin-left:1rem;text-decoration:none;color:var(--muted)}
+    .hero{display:flex;gap:1.5rem;align-items:center;padding:2rem 1rem;background:linear-gradient(90deg,#fffaf7,#fff);}
+    .hero .left{flex:1}
+    .hero h1{font-size:2rem;margin:.2rem 0;color:var(--accent)}
+    .hero p{margin:.6rem 0;color:#444}
+    .cta{display:inline-block;padding:.6rem 1rem;background:var(--accent);color:#fff;border-radius:8px;text-decoration:none}
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.5rem 0}
+    .card{background:var(--card);padding:1rem;border-radius:10px;box-shadow:0 6px 18px rgba(107,45,45,.06);display:flex;flex-direction:column}
+    .card img{width:100%;height:150px;object-fit:cover;border-radius:8px}
+    .card h4{margin:.6rem 0 .2rem 0;color:var(--accent)}
+    .price{font-weight:700;color:var(--accent-2)}
+    .card button{margin-top:auto;padding:.5rem;border:0;border-radius:8px;background:var(--accent);color:#fff}
+    .grid-2{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center}
+    .cart-btn{background:transparent;border:0;position:relative;cursor:pointer}
+    .cart-count{position:absolute;top:-6px;right:-6px;background:#b8735a;color:#fff;border-radius:999px;padding:2px 6px;font-size:.75rem}
+    footer{padding:1.2rem 0;text-align:center;color:var(--muted);font-size:.9rem}
+    /* modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:1rem}
+    .modal.open{display:flex}
+    .modal .panel{background:#fff;padding:1rem;border-radius:10px;max-width:520px;width:100%}
+    .small{font-size:.9rem;color:var(--muted)}
+    /* contact */
+    .contact{background:#fff;padding:1rem;border-radius:10px;margin:1rem 0}
+    .contact label{display:block;margin:.5rem 0}
+    .contact input,.contact textarea{width:100%;padding:.5rem;border-radius:6px;border:1px solid #eee}
+    .btn{display:inline-block;padding:.5rem .8rem;border-radius:8px;border:0;background:var(--accent);color:#fff}
+    @media(max-width:700px){
+      .hero{flex-direction:column;text-align:center}
+      .top nav{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top container">
+      <div class="grid-2">
+        <div class="logo">Coké</div>
+      </div>
+      <div>
+        <nav>
+          <a href="#productos">Productos</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+      </div>
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <button class="cart-btn" id="openCart" aria-label="Abrir carrito">👜 <span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="left">
+        <h1>Bienvenido a <span style="color:var(--accent-2)">Coké</span></h1>
+        <p>Chocolates artesanales hechos con cariño. Bombones, trufas y tabletas premium. Envíos a todo el país.</p>
+        <a class="cta" href="#productos">Ver productos</a>
+      </div>
+      <div class="right" style="width:280px">
+        <!-- REEMPLAZAR: imagen de hero (coloca tu propia imagen aquí) -->
+        <img src="C:\Users\juamp\Documents\PAGINA WEB DE CHOCOLATES\Imagenes\01 CHOCO.png" width="300">
+                        
+    </section>
+
+    <section id="productos">
+      <h2>Productos destacados</h2>
+      <div class="products" id="productsGrid">
+        <!-- Cards se generan por JS -->
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <h3>Contacto</h3>
+      <p class="small">¿Tienes preguntas? Escríbenos o deja tu pedido por anticipado.</p>
+      <form id="contactForm">
+        <label>Nombre<input name="name" required></label>
+        <label>Email<input name="email" type="email" required></label>
+        <label>Mensaje<textarea name="message" rows="3" required></textarea></label>
+        <button class="btn" type="submit">Enviar</button>
+        <p id="contactStatus" class="small"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Coké — Chocolates artesanales de Ecuador • Hecho con ❤️
+    </div>
+  </footer>
+
+  <!-- Modal carrito -->
+  <div class="modal" id="cartModal" aria-hidden="true">
+    <div class="panel">
+      <h3>Tu carrito</h3>
+      <div id="cartItems"></div>
+      <p class="small" id="cartTotal"></p>
+      <div style="display:flex;gap:.6rem;margin-top:.6rem">
+        <button id="checkoutBtn" class="btn">Pagar</button>
+        <button id="closeCart" class="btn" style="background:#ccc;color:#111">Cerrar</button>
+      </div>
+      <div style="margin-top:.8rem">
+        <p class="small">Este checkout es de ejemplo: al presionar "Pagar" se genera un pedido guardado en tu navegador.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================
+    // DATA de ejemplo (REEMPLAZAR por tu catálogo)
+    // ==========================
+    const PRODUCTS = [
+      {id: 'p1', name: 'Caja de bombones (12)', price: 18.50, img: 'https://images.unsplash.com/photo-1605460375648-278bcbd579a6?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f6f9f6e0a5a1a1a2b3c4d5e6f7a8b9c'},
+      {id: 'p2', name: 'Trufas surtidas (6)', price: 12.00, img: 'https://images.unsplash.com/photo-1546069901-eacef0df6022?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcdef1234567890abcdef1234567890'},
+      {id: 'p3', name: 'Tableta 70% cacao', price: 6.00, img: 'https://images.unsplash.com/photo-1504643039590-1f8a2c4f8f4b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=123456abcdef123456abcdef123456ab'}
+    ];
+
+    // ==========================
+    // UTILIDADES carrito (localStorage)
+    // ==========================
+    function loadCart(){
+      try{ return JSON.parse(localStorage.getItem('coke_cart')||'{}'); }catch(e){return{}}
+    }
+    function saveCart(cart){ localStorage.setItem('coke_cart', JSON.stringify(cart)); updateCartCount(); }
+    function updateCartCount(){ const cart=loadCart(); const count=Object.values(cart).reduce((s,x)=>s+x.qty,0); document.getElementById('cartCount').textContent=count; }
+
+    // ==========================
+    // Render productos
+    // ==========================
+    const grid = document.getElementById('productsGrid');
+    function renderProducts(){
+      grid.innerHTML='';
+      PRODUCTS.forEach(p=>{
+        const div = document.createElement('div'); div.className='card';
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <h4>${p.name}</h4>
+          <p class="price">$ ${p.price.toFixed(2)}</p>
+          <p class="small">Artesanal • Empaque premium</p>
+          <button data-id="${p.id}">Agregar</button>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    // ==========================
+    // Eventos: agregar al carrito
+    // ==========================
+    document.addEventListener('click', (e)=>{
+      if(e.target.matches('.card button')){
+        const id=e.target.dataset.id; addToCart(id,1);
+      }
+    });
+
+    function addToCart(id,qty){
+      const cart = loadCart();
+      if(!cart[id]){ const prod = PRODUCTS.find(p=>p.id===id); cart[id]={...prod, qty:0}; }
+      cart[id].qty += qty;
+      saveCart(cart);
+      flash('Añadido al carrito');
+    }
+
+    // ==========================
+    // Modal carrito
+    // ==========================
+    const cartModal = document.getElementById('cartModal');
+    document.getElementById('openCart').addEventListener('click', ()=>{ renderCart(); cartModal.classList.add('open'); cartModal.setAttribute('aria-hidden','false'); });
+    document.getElementById('closeCart').addEventListener('click', ()=>{ cartModal.classList.remove('open'); cartModal.setAttribute('aria-hidden','true'); });
+
+    function renderCart(){
+      const container = document.getElementById('cartItems'); container.innerHTML='';
+      const cart = loadCart();
+      let total=0;
+      Object.values(cart).forEach(item=>{
+        const row = document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.alignItems='center'; row.style.margin='.4rem 0';
+        row.innerHTML = `
+          <div style="min-width:140px">
+            <strong>${item.name}</strong>
+            <div class="small">$ ${item.price.toFixed(2)} x ${item.qty}</div>
+          </div>
+          <div style="display:flex;gap:.4rem;align-items:center">
+            <button class="small" onclick="changeQty('${item.id}',-1)">-</button>
+            <button class="small" onclick="changeQty('${item.id}',1)">+</button>
+            <button class="small" onclick="removeItem('${item.id}')">Eliminar</button>
+          </div>
+        `;
+        container.appendChild(row);
+        total += item.price * item.qty;
+      });
+      document.getElementById('cartTotal').textContent = `Total: $ ${total.toFixed(2)}`;
+    }
+
+    window.changeQty = function(id,delta){ const cart=loadCart(); if(!cart[id]) return; cart[id].qty += delta; if(cart[id].qty<=0) delete cart[id]; saveCart(cart); renderCart(); }
+    window.removeItem = function(id){ const cart=loadCart(); delete cart[id]; saveCart(cart); renderCart(); }
+
+    // Checkout simulado
+    document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+      const cart = loadCart(); if(Object.keys(cart).length===0){ alert('El carrito está vacío'); return; }
+      const order = {id: 'ORD'+Date.now(), date: new Date().toISOString(), items: cart};
+      localStorage.setItem('coke_last_order', JSON.stringify(order));
+      localStorage.removeItem('coke_cart'); updateCartCount(); renderCart(); alert('Pedido simulado creado: ' + order.id + '\nRevisa localStorage para detalles.'); cartModal.classList.remove('open');
+    });
+
+    // ==========================
+    // Contact form (envío simulado)
+    // ==========================
+    document.getElementById('contactForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = new FormData(e.target);
+      // Aquí podrías enviar a Formspree o Google Apps Script. Simulamos envío:
+      document.getElementById('contactStatus').textContent = 'Enviando…';
+      setTimeout(()=>{ document.getElementById('contactStatus').textContent = 'Mensaje enviado. Te responderemos pronto.'; e.target.reset(); },800);
+    });
+
+    function flash(msg){
+      const el = document.createElement('div'); el.textContent = msg; el.style.position='fixed'; el.style.right='12px'; el.style.bottom='12px'; el.style.background='var(--accent)'; el.style.color='#fff'; el.style.padding='.6rem .9rem'; el.style.borderRadius='8px'; el.style.boxShadow='0 6px 18px rgba(0,0,0,.15)'; document.body.appendChild(el);
+      setTimeout(()=>el.remove(),1200);
+    }
+
+    // Init
+    document.getElementById('year').textContent = new Date().getFullYear(); renderProducts(); updateCartCount();
+  </script>
+</body>
+</html>
